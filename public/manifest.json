@@ -1,0 +1,56 @@
+{
+  "name": "校园工具箱 Campus Toolbox",
+  "short_name": "校园工具箱",
+  "description": "面向高校学生的在线工具集合：公文格式自检、课表冲突与空闲时段，以及 90+ 个通用实用工具。全部本地处理，支持离线使用。",
+  "theme_color": "#18a058",
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "orientation": "any",
+  "start_url": "/",
+  "scope": "/",
+  "lang": "zh-CN",
+  "categories": ["education", "productivity", "utilities"],
+  "icons": [
+    {
+      "src": "/favicon-16x16.png",
+      "sizes": "16x16",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon-32x32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    },
+    {
+      "src": "/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "公文格式自检",
+      "short_name": "公文自检",
+      "description": "检查公文格式是否符合 GB/T 9704-2012",
+      "url": "/official-document-checker"
+    },
+    {
+      "name": "课表冲突检测",
+      "short_name": "课表工具",
+      "description": "检测课程冲突并计算空闲时段",
+      "url": "/timetable-conflict-checker"
+    }
+  ]
+}
