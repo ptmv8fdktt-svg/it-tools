@@ -55,21 +55,35 @@ git push -u origin main:campus-toolbox
 
 ### 首次推送的认证
 
-push 时 GitHub 需要验证身份，两种方式任选：
+> **本机实战记录（2026-10-06）**：push 已经完成 ✅（分支 `campus-toolbox`）。
+> 过程中发现便携版 git 自带的凭据选择器（helper-selector）在「保存凭据」
+> 环节会挂起，导致 push 卡住无响应。以下经验供以后推送更新时参考。
 
-**方式 A：浏览器授权（推荐，最省事）**
+**以后推送更新的推荐方式**（git 已全局配置 `credential.helper=manager`）：
 
-Windows 的 Git Credential Manager 会自动弹出登录窗口，选择
-**GitHub** → 按浏览器 OAuth 提示授权即可，凭据会自动记住，
-之后 push 不再要求登录。
+```bash
+git push -u origin main:campus-toolbox
+```
 
-**方式 B：Personal Access Token（PAT）**
+首次会弹出 GitHub 登录窗口（Git Credential Manager），浏览器授权一次，
+凭据存入 Windows 凭据管理器，以后免登录。
+
+**若 push 卡住不动**（helper 挂起的特征：warning 后光标停住不弹窗），
+用「清空 helper + 带 token 的完整 URL」强制推送：
+
+```bash
+git -c credential.helper= push https://<用户名>:<PAT>@github.com/ptmv8fdktt-svg/it-tools.git main:campus-toolbox
+```
+
+**PAT 生成方式**（GitHub 已不接受账号密码）：
 
 1. 打开 <https://github.com/settings/tokens> → **Generate new token (classic)**
 2. Note 随意填（如 `campus-toolbox`），Expiration 选 30 天，
    勾选 **repo** 权限 → 生成并复制
-3. 终端提示时：Username 填 `ptmv8fdktt-svg`，Password 粘贴 PAT
-   （GitHub 已不接受账号密码直推，PAT 就是密码）
+3. 拼进上面命令的 `<PAT>` 位置
+
+> 注意：CMD 终端里粘贴 Password 时屏幕不显示字符（连星号都没有），
+> 粘贴一次即可；Username 处建议手动敲键盘，避免粘贴重复。
 
 ### 推送成功后
 
