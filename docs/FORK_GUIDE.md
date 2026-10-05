@@ -4,39 +4,79 @@
 
 ## 背景
 
-本任务要求「先 fork，再改，交你 fork 后的链接」。由于开发环境的网络限制
-（`github.com` 主站被阻断，仅 `api.github.com` 可达），fork 与 push 需要
-你在本机完成。代码改动已全部就绪并写好规范的 git 提交，你只需执行下面
-三步。
+本任务要求「先 fork，再改，交你 fork 后的链接」。fork 与 push 属于
+账号级操作，需要由你本人完成认证；代码改动、提交组织、网络配置等
+准备工作均已在本地就绪。
 
-## 第一步：在 GitHub 上 Fork
+## 第一步：在 GitHub 上 Fork ✅ 已完成
 
 1. 登录 GitHub，打开 <https://github.com/CorentinTh/it-tools>
 2. 点击右上角 **Fork** 按钮 → **Create fork**
-3. 得到你的 fork 地址，形如：`https://github.com/<你的用户名>/it-tools`
+3. 你的 fork 地址：<https://github.com/ptmv8fdktt-svg/it-tools>
 
 ## 第二步：关联本地仓库并推送
 
-本项目目录已经初始化为 git 仓库并完成了提交，直接关联你的 fork 即可：
+### 已就绪（无需操作）
+
+以下准备工作已全部完成，可直接推送：
+
+- ✅ 本地仓库 5 个规范提交，工作区干净（`git status` 无未提交改动）
+- ✅ 提交署名已关联你的 GitHub 账号
+  （`ptmv8fdktt-svg <335067536+ptmv8fdktt-svg@users.noreply.github.com>`，
+  推送后提交会正确挂上你的头像并点亮贡献图）
+- ✅ `origin` 已指向你的 fork：`https://github.com/ptmv8fdktt-svg/it-tools.git`
+- ✅ git 全局网络已配置走 DevSidecar 代理（`http://127.0.0.1:31181`）
+  并信任其根证书，连通性已验证
+
+### 你要做的：一条命令完成推送
+
+> 前提：DevSidecar 保持开启（push 流量需要经它加速）。
+
+打开终端（CMD 或 PowerShell 均可），执行：
 
 ```bash
-cd campus-toolbox
+cd /d C:\Users\Maggie\WorkBuddy\2026-09-28-21-41-10\campus-toolbox
 
-# 查看现有提交（应看到规范分次的提交记录）
-git log --oneline
-
-# 把 origin 指向你的 fork（把 <你的用户名> 换成实际用户名）
-git remote set-url origin https://github.com/<你的用户名>/it-tools.git
-
-# 推送（本地分支名 main 推到 fork 的 main）
-git push -u origin main
+git push -u origin main:campus-toolbox
 ```
 
-> 提示：如果 push 提示需要认证，使用 Personal Access Token（PAT）作为密码，
-> 或配置 SSH key。GitHub 已不接受账号密码直推。
+> 说明：本地 `main` 推到 fork 的 **`campus-toolbox` 新分支**。
+> fork 的 `main` 自带上游数千条历史提交，与本地仓库无共同祖先，
+> 直推 `main` 会被 GitHub 拒绝（non-fast-forward）；推分支干净利落，
+> 评审打开链接直接就是校园工具箱的改造提交。
 
-推送成功后，访问 `https://github.com/<你的用户名>/it-tools` 就能看到
-全部改造内容 —— 这个链接就是可以提交的仓库链接。
+> 如果 CMD 报 **"'git' 不是内部或外部命令"**：本机 git 是便携版、
+> 不在系统 PATH 里。先执行下面这条把 git 临时加入当前窗口的 PATH，
+> 再执行上面的 push（只需在本窗口执行一次）：
+>
+> ```bash
+> set PATH=%PATH%;C:\Users\Maggie\.workbuddy\binaries\PortableGit\versions\1.2.0\cmd
+> ```
+
+### 首次推送的认证
+
+push 时 GitHub 需要验证身份，两种方式任选：
+
+**方式 A：浏览器授权（推荐，最省事）**
+
+Windows 的 Git Credential Manager 会自动弹出登录窗口，选择
+**GitHub** → 按浏览器 OAuth 提示授权即可，凭据会自动记住，
+之后 push 不再要求登录。
+
+**方式 B：Personal Access Token（PAT）**
+
+1. 打开 <https://github.com/settings/tokens> → **Generate new token (classic)**
+2. Note 随意填（如 `campus-toolbox`），Expiration 选 30 天，
+   勾选 **repo** 权限 → 生成并复制
+3. 终端提示时：Username 填 `ptmv8fdktt-svg`，Password 粘贴 PAT
+   （GitHub 已不接受账号密码直推，PAT 就是密码）
+
+### 推送成功后
+
+- 验证链接（这就是提交给老师/评审的仓库地址）：
+  **<https://github.com/ptmv8fdktt-svg/it-tools/tree/campus-toolbox>**
+- 可选：在 fork 页面 **Settings → Branches**，把默认分支切到
+  `campus-toolbox`，这样打开仓库首页直接显示中文改造内容
 
 ## 第三步：（可选）部署在线 Demo
 
@@ -68,12 +108,12 @@ docker run -p 8080:80 campus-toolbox
 
 本仓库的提交按「一个逻辑改动 = 一个提交」组织，便于评审查看演进过程：
 
-1. `feat(official-document-checker): 公文格式自检核心引擎` —— 规则引擎 + 解析器 + 修复器
-2. `feat(official-document-checker): 工具界面与示例文档`
-3. `feat(timetable-conflict-checker): 课表冲突与空闲时段工具`
-4. `feat: 中文本地化与校园分类注册`
-5. `chore: PWA 离线配置与品牌信息`
-6. `docs: GPL-3.0 合规声明与项目说明`
+1. `chore: project identity and GPL-3.0 compliance baseline` —— 项目身份与合规基线
+2. `feat(official-document-checker): official document format checker core` —— 公文格式自检核心
+3. `feat(timetable-conflict-checker): timetable conflict and free-slot tool` —— 课表冲突与空闲时段
+4. `feat: campus category and zh localization for new tools` —— 校园分类与中文本地化
+5. `chore: PWA manifest, shortcuts, and offline indicator` —— PWA 离线配置
+6. `docs: rewrite fork guide step 2 for branch push and auth flow` —— 推送指南修正（本文件）
 
 ## 验证清单
 
@@ -87,6 +127,11 @@ pnpm build        # 确认可构建
 ```
 
 ## 常见问题
+
+**Q: push 报网络错误（timeout / connection reset）？**
+A: 确认 DevSidecar 正在运行且已开启系统代理。git 已配置走
+`127.0.0.1:31181`（DevSidecar 本地端口）。若日后不再使用 DevSidecar，
+执行 `git config --global --unset http.proxy` 恢复直连。
 
 **Q: 为什么不直接用 gh CLI 自动 fork？**
 A: 开发环境中 `github.com` 主站被网络策略阻断（CONNECT 502），且 fork 需要
